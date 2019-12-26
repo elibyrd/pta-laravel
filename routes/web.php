@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +13,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'ajax'], function() {
+    Route::post('/logout', function () {
+        Auth::logoutCurrentDevice();
+        return response()->json([
+            'success' => true,
+            'message' => "Successfully logged out!",
+        ]);
+    })->name('logout');;
+    // all routes that don't need to go to react-router
+    Auth::routes();
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/{path?}', function () {
+    return view('app');
+});
