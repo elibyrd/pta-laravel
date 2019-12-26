@@ -19,6 +19,7 @@
             var user = "{{ $user_json }}";
             var routes = {
                 "register": "{{ route('register') }}",
+                "login": "{{ route('login') }}",
                 "logout": "{{ route('logout') }}",
             };
         </script>

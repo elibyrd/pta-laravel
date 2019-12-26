@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-
-import {
-    reducer as formReducer,
-    reduxForm,
-    Field
-} from 'redux-form'
+import axios from 'axios'
 
 const FormField = ({
     label,
@@ -13,23 +7,24 @@ const FormField = ({
     type,
     name,
     className,
-    meta: { touched, error, warning }
+    onChange,
+    //meta: { touched, error, warning }
 }) => (
     <div className="form-group">
         {
             label &&
             <label htmlFor={name}>{label}</label>
         }
-        <input {...input } name={name} type={type} className={
+        <input {...input } name={name} type={type} onChange={onChange} className=""/*{
             `${className} ${
-                touched && (
-                    (error && 'is-invalid')
+                /*meta.touched && (
+                    (meta.error && 'is-invalid')
                 )
             }`
-        } />
+        }*/ />
         {
-            touched &&
-                (error && <span className="invalid-feedback">{error}</span>)
+            //meta.touched &&
+            //    (meta.error && <span className="invalid-feedback">{meta.error}</span>)
         }
     </div>
 );
@@ -37,17 +32,29 @@ const FormField = ({
 class SignInPage extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+        };
 
-        this.processSubmit = this.processSubmit.bind(this);
+        this.myChangeHandler = this.myChangeHandler.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    processSubmit(values) {
+    myChangeHandler(event) {
+        let nam = event.target.name;
+        let val = event.target.value;
+        if(event.target.type == "checkbox")
+            val = event.target.checked;
+        this.setState({[nam]: val});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
         axios
-        .post('/ajax/login', values)
+        .post(routes.login, this.state)
         .then( (response) => {
             console.log(response.data);
             if(response.data.success){
-                window.location.reload(true);
+                this.props.history.push("/");
             }
         })
         .catch( (err) => {
@@ -56,42 +63,36 @@ class SignInPage extends Component {
     }
 
     render() {
-        const { handleSubmit, submitting } = this.props;
-
         return (
             <div className="">
                 <h2 className="">Sign into your account</h2>
-                <form onSubmit={handleSubmit(this.processSubmit)}>
-                    <Field
+                <form onSubmit={this.handleSubmit}>
+                    <FormField
                         label="Email Address"
                         name="email"
-                        component={FormField}
                         id="email"
                         type="text"
                         className=""
+                        onChange={this.myChangeHandler}
                     />
-                    <Field 
+                    <FormField 
                         label="Password" 
                         name="password" 
-                        component={FormField} 
                         id="password" 
                         type="password" 
                         className="" 
+                        onChange={this.myChangeHandler}
                     />
-                    <div className="form-check">
-                        <label className="">
-                            <Field 
-                                name="remember" 
-                                component="input" 
-                                type="checkbox" 
-                                className="" 
-                                value="1" 
-                            />
-                            Remember me
-                        </label>
-                    </div>
+                    <FormField 
+                        label="Remember me"
+                        name="remember" 
+                        id="remember"
+                        type="checkbox" 
+                        className="" 
+                        onChange={this.myChangeHandler}
+                    />
                     <div className="">
-                        <button type="submit" className="" disabled={submitting}>Continue</button>
+                        <button type="submit" className="">Continue</button>
                     </div>
                 </form>
             </div>
@@ -99,24 +100,32 @@ class SignInPage extends Component {
     }
 };
 
-SignInPage = reduxForm({
-    form: 'signin',
-})(SignInPage);
-
 class RegisterPage extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+        };
 
-        this.processSubmit = this.processSubmit.bind(this);
+        this.myChangeHandler = this.myChangeHandler.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    processSubmit(values) {
+    myChangeHandler(event) {
+        let nam = event.target.name;
+        let val = event.target.value;
+        if(event.target.type == "checkbox")
+            val = event.target.checked;
+        this.setState({[nam]: val});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
         axios
-        .post(routes.register, values)
+        .post(routes.register, this.state)
         .then( (response) => {
             console.log(response.data);
             if(response.data.success){
-                window.location.reload(true);
+                this.props.history.push("/");
             }
         })
         .catch( (err) => {
@@ -125,56 +134,54 @@ class RegisterPage extends Component {
     }
 
     render() {
-        const { handleSubmit, submitting } = this.props;
-
         return (
             <div className="">
                 <h2 className="">Register a new account</h2>
-                <form onSubmit={handleSubmit(this.processSubmit)}>
-                    <Field
+                <form onSubmit={this.handleSubmit}>
+                    <FormField
                         label="Name"
                         name="name"
                         component={FormField}
                         id="text"
                         type="name"
                         className=""
+                        onChange={this.myChangeHandler}
                     />
-                    <Field
+                    <FormField
                         label="Email Address"
                         name="email"
                         component={FormField}
                         id="email"
                         type="email"
                         className=""
+                        onChange={this.myChangeHandler}
                     />
-                    <Field 
+                    <FormField 
                         label="Password" 
                         name="password" 
                         component={FormField} 
                         id="password" 
                         type="password" 
                         className="" 
+                        onChange={this.myChangeHandler}
                     />
-                    <Field 
+                    <FormField 
                         label="Confirm Password" 
                         name="password_confirmation" 
                         component={FormField} 
                         id="password-confirm" 
                         type="password" 
                         className="" 
+                        onChange={this.myChangeHandler}
                     />
                     <div className="">
-                        <button type="submit" className="" disabled={submitting}>Continue</button>
+                        <button type="submit" className="">Continue</button>
                     </div>
                 </form>
             </div>
         );
     }
 };
-
-RegisterPage = reduxForm({
-    form: 'register',
-})(RegisterPage);
 
 export {
     SignInPage,
