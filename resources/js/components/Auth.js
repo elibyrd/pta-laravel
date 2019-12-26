@@ -54,6 +54,7 @@ class SignInPage extends Component {
         .then( (response) => {
             console.log(response.data);
             if(response.data.success){
+                this.props.setUser(response.data.user);
                 this.props.history.push("/");
             }
         })
@@ -125,6 +126,7 @@ class RegisterPage extends Component {
         .then( (response) => {
             console.log(response.data);
             if(response.data.success){
+                this.props.setUser(response.data.user);
                 this.props.history.push("/");
             }
         })

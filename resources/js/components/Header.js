@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 let Header = (props) => {
-    if(user){
+    if(props.user){
         function logout(e) {
             e.preventDefault();
             axios
@@ -14,6 +14,7 @@ let Header = (props) => {
             .then( (response) => {
                 console.log(response.data);
                 if(response.data.success){
+                    props.setUser(false);
                     window.location.reload(true);
                 }
             })
@@ -26,7 +27,7 @@ let Header = (props) => {
                 <Link className="" to="/">Home</Link>
                 <ul className="">
                     <li className="">
-                        {user}
+                        {props.user}
                     </li>
                     <li className="">
                         <Link className="" to="/dashboard">Dashboard</Link>

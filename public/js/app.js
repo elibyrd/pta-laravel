@@ -40795,6 +40795,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -40803,9 +40805,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -40842,24 +40844,51 @@ function (_Component) {
   _inherits(App, _Component);
 
   function App(props) {
+    var _this;
+
     _classCallCheck(this, App);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
+    _this.state = {
+      user: base_user
+    };
+    _this.setUser = _this.setUser.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(App, [{
+    key: "setUser",
+    value: function setUser(value) {
+      this.setState({
+        user: value
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header_js__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        user: this.state.user,
+        setUser: this.setUser
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
         exact: true,
         path: "/",
         component: LandingPage
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
         path: "/signin",
-        component: _Auth_js__WEBPACK_IMPORTED_MODULE_3__["SignInPage"]
+        component: function component(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Auth_js__WEBPACK_IMPORTED_MODULE_3__["SignInPage"], _extends({}, props, {
+            setUser: _this2.setUser
+          }));
+        }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
         path: "/register",
-        component: _Auth_js__WEBPACK_IMPORTED_MODULE_3__["RegisterPage"]
+        component: function component(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Auth_js__WEBPACK_IMPORTED_MODULE_3__["RegisterPage"], _extends({}, props, {
+            setUser: _this2.setUser
+          }));
+        }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Route"], {
         path: "/dashboard",
         component: DashboardPage
@@ -40981,6 +41010,8 @@ function (_Component) {
         console.log(response.data);
 
         if (response.data.success) {
+          _this2.props.setUser(response.data.user);
+
           _this2.props.history.push("/");
         }
       })["catch"](function (err) {
@@ -41066,6 +41097,8 @@ function (_Component2) {
         console.log(response.data);
 
         if (response.data.success) {
+          _this4.props.setUser(response.data.user);
+
           _this4.props.history.push("/");
         }
       })["catch"](function (err) {
@@ -41149,13 +41182,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Header = function Header(props) {
-  if (user) {
+  if (props.user) {
     var logout = function logout(e) {
       e.preventDefault();
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(routes.logout).then(function (response) {
         console.log(response.data);
 
         if (response.data.success) {
+          props.setUser(false);
           window.location.reload(true);
         }
       })["catch"](function (err) {
@@ -41172,7 +41206,7 @@ var Header = function Header(props) {
       className: ""
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: ""
-    }, user), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    }, props.user), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: ""
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
       className: "",

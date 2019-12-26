@@ -51,6 +51,7 @@ class LoginController extends Controller
         return response()->json([
             'success' => 'true',
             'message' => 'Successfully logged in!',
+            'user' => $user->getAttribute('email'),
         ]);
     }
 

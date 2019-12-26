@@ -23,16 +23,25 @@ let DashboardPage = (props) => {
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user: base_user,
+    };
+
+    this.setUser = this.setUser.bind(this);
+  }
+
+  setUser(value) {
+    this.setState({user: value});
   }
 
   render() {
       return (
         <BrowserRouter>
           <div>
-            <Header />
+            <Header user={this.state.user} setUser={this.setUser} />
             <Route exact path="/" component={LandingPage} />
-            <Route path="/signin" component={SignInPage} />
-            <Route path="/register" component={RegisterPage} />
+            <Route path="/signin" component={(props) => <SignInPage {...props} setUser={this.setUser} />} />
+            <Route path="/register" component={(props) => <RegisterPage {...props} setUser={this.setUser} />} />
             <Route path="/dashboard" component={DashboardPage} />
           </div>
         </BrowserRouter>

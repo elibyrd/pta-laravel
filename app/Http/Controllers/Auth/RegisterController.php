@@ -88,6 +88,7 @@ class RegisterController extends Controller
                 return response()->json([
                     'success' => 'true',
                     'message' => 'Successfully created account and logged in!',
+                    'user' => $user->getAttribute('email'),
                 ]);
             }
         }

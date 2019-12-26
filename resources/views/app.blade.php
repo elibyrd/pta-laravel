@@ -16,7 +16,7 @@
             }
         ?>
         <script>
-            var user = "{{ $user_json }}";
+            var base_user = "{{ $user_json }}";
             var routes = {
                 "register": "{{ route('register') }}",
                 "login": "{{ route('login') }}",
