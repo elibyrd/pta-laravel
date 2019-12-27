@@ -1,5 +1,221 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import '~normalize.css/normalize.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 // Variables
 @import 'variables';
+
+.layoutContainer {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+.l-sidebar {
+  height: 100%;
+
+  .s-container {
+    background: $grey;
+    color: $greyText;
+    height: 100%;
+    width: 12em;
+  }
+
+  a {
+    text-decoration: none;
+    color: $greyText;
+  }
+
+  .s-user {
+    background: $darkGrey;
+    color: $darkGreyText;
+    min-height: 6em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1em;
+
+    a {
+      color: $darkGreyText;
+    }
+  }
+  
+  .s-links ul {
+    margin: 0;
+    padding: 1em 0;
+    list-style: none;
+  }
+  
+  .s-links li {
+    a {
+      display: block;
+      padding: 1em;
+    }
+  
+    a:hover, a:focus {
+      background-color: $highlight;
+      color: $highlightText;
+    }
+  }
+
+  .s-links .iconContainer {
+    display: inline-block;
+    width: 1.5em;
+    margin-right: .75em;
+  }
+}
+
+.l-content {
+  flex: 1 0 auto;
+}
+
+.l-header {
+  background-color: $lightGrey;
+  color: $lightGreyText;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  padding: 1em;
+  font-size: 1.2em;
+}
+
+.mdl-single-column {
+  padding: 1em;
+  padding-top: 0;
+}
+
+.mdl-multi-column {
+  padding: 1em;
+  padding-top: 0;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  .mdl-card {
+    margin-left: 1em;
+  }
+}
+
+.mdl-card {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  background-color: white;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.mdl-card-link {
+  font-size: 1.5em;
+  padding: 0;
+
+  i {
+    font-size: 3em;
+    margin-bottom: .3em;
+  }
+
+  a {
+    text-decoration: none;
+    color: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+  }
+
+  a:hover, a:focus {
+    background-color: $lightGrey;
+    color: $darkGrey;
+  }
+}
+
+.form-group {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+
+  input {
+    border: none;
+    border-bottom: 1px solid grey;
+    padding: .5em .2em;
+  }
+  
+  label {
+    font-size: .9em;
+    color: #666;
+  }
+}
+
+.form-group.checkbox {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+
+  label {
+    font-size: 1em;
+    margin-left: .5em;
+  }
+}
+
+.form-control {
+  margin-top: 1em;
+  text-align: right;
+}
+
+.mdl-button {
+  border: none;
+  padding: .75em 1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.mdl-button.main {
+  background-color: $buttonMain;
+  color: $buttonMainText;
+}
+
+.mdl-button.main:hover, .mdl-button.main:focus {
+  background-color: $buttonMainHover;
+}
+
+.dex-entry {
+  position: relative;
+  text-align: center;
+  align-self: flex-start;
+
+  .remove {
+    position: absolute;
+    top: 0.3em;
+    right: 0.5em;
+    color: darkred;
+    font-size: 1.3em;
+  }
+
+  .trainerList, .remove {
+    display: none;
+  }
+
+  .sprite {
+      margin: .5em 0;
+  }
+
+  .trainerList {
+      text-align: left;
+      margin-top: 1em;
+
+      ul {
+          padding: 0;
+          margin: 0;
+          margin-top: .5em;
+          list-style: none;
+      }
+    
+      li { margin-top: .3em; }
+      input { margin-right: .3em; }
+  }
+}
+
+.dex-entry.selected {
+  .trainerList, .remove {
+    display: block;
+  }
+}

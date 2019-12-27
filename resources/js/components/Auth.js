@@ -10,12 +10,12 @@ const FormField = ({
     onChange,
     //meta: { touched, error, warning }
 }) => (
-    <div className="form-group">
+    <div className={"form-group "+className}>
         {
             label &&
             <label htmlFor={name}>{label}</label>
         }
-        <input {...input } name={name} type={type} onChange={onChange} className=""/*{
+        <input {...input } id={name} name={name} type={type} onChange={onChange} className=""/*{
             `${className} ${
                 /*meta.touched && (
                     (meta.error && 'is-invalid')
@@ -65,9 +65,8 @@ class SignInPage extends Component {
 
     render() {
         return (
-            <div className="">
-                <h2 className="">Sign into your account</h2>
-                <form onSubmit={this.handleSubmit}>
+            <div className="mdl-single-column">
+                <form className="mdl-card" onSubmit={this.handleSubmit}>
                     <FormField
                         label="Email Address"
                         name="email"
@@ -89,11 +88,11 @@ class SignInPage extends Component {
                         name="remember" 
                         id="remember"
                         type="checkbox" 
-                        className="" 
+                        className="checkbox" 
                         onChange={this.myChangeHandler}
                     />
-                    <div className="">
-                        <button type="submit" className="">Continue</button>
+                    <div className="form-control">
+                        <button type="submit" className="mdl-button main">Continue</button>
                     </div>
                 </form>
             </div>
@@ -137,9 +136,8 @@ class RegisterPage extends Component {
 
     render() {
         return (
-            <div className="">
-                <h2 className="">Register a new account</h2>
-                <form onSubmit={this.handleSubmit}>
+            <div className="mdl-single-column">
+                <form className="mdl-card" onSubmit={this.handleSubmit}>
                     <FormField
                         label="Name"
                         name="name"
@@ -176,8 +174,8 @@ class RegisterPage extends Component {
                         className="" 
                         onChange={this.myChangeHandler}
                     />
-                    <div className="">
-                        <button type="submit" className="">Continue</button>
+                    <div className="form-control">
+                        <button type="submit" className="mdl-button main">Continue</button>
                     </div>
                 </form>
             </div>

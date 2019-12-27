@@ -3,6 +3,8 @@ import axios from 'axios'
 
 let DexEntry = (props) => {
   let trainerRef = props.trainerRef;
+  let toggleSelect = ()=>{props.toggleSelect(props.entryID)};
+  let selected = props.selected;
   let trainerData = Object.keys(trainerRef).map((key) => {
     let ref = trainerRef[key];
     let checked = props.trainersCaught.includes(ref.id);
@@ -16,19 +18,26 @@ let DexEntry = (props) => {
     );
   });
   let trainerList = (
-    <div>
-      <div>Caught by:</div>
+    <div className='trainerList'>
+      <div>Caught:</div>
       <ul>
         {trainerData}
       </ul>
     </div>
   );
   let removeSeen = ()=>(props.seenChangeHandler(props.entryID, false));
+  let imgsrc = "https://img.pokemondb.net/sprites/sun-moon/icon/"+props.name.toLowerCase()+".png";
+  let className="mdl-card dex-entry"+(selected?" selected":"");
   return (
-    <div className="dex-entry">
-      <div>#{props.ndid}: {props.name}</div>
+    <div className={className} onClick={toggleSelect}>
+      <div className='ndid'>#{props.ndid}</div>
+      <div className='sprite'><img src={imgsrc} alt=""/></div>
+      <div className='name'>{props.name}</div>
       {trainerList}
-    <a href='#' onClick={removeSeen}>Remove #{props.ndid}</a>
+      <a className="remove" href='#' onClick={removeSeen}>
+        <i className="far fa-times"></i>
+        <span className="sr-only">Remove #{props.ndid}</span>
+      </a>
     </div>
   );
 };
@@ -63,10 +72,12 @@ class PlayerdexPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedEntry: null,
     };
 
     this.caughtChangeHandler = this.caughtChangeHandler.bind(this);
     this.seenChangeHandler = this.seenChangeHandler.bind(this);
+    this.selectEntryHandler = this.selectEntryHandler.bind(this);
   }
 
   async componentDidMount() {
@@ -143,6 +154,15 @@ class PlayerdexPage extends Component {
     });
   }
 
+  selectEntryHandler(eid) {
+    if(this.state.selectedEntry == eid){
+      this.setState({selectedEntry: null});
+    }
+    else {
+      this.setState({selectedEntry: eid});
+    }
+  }
+
   render() {
     let items = (
       <div>Loading...</div>
@@ -160,21 +180,26 @@ class PlayerdexPage extends Component {
               trainerRef={this.state.trainers}
               caughtChangeHandler={this.caughtChangeHandler}
               seenChangeHandler={this.seenChangeHandler}
+              toggleSelect={this.selectEntryHandler}
+              selected={this.state.selectedEntry == entry.eid}
             />);
         return null;
       });
     }
     return (
-      <div className="">
-        <h2 className="">Player Pokedex</h2>
-        <EntrySelect
-          pokedex={this.state.pokedex}
-          seenChangeHandler={this.seenChangeHandler}
-        />
-        <div className="dex">
+      <React.Fragment>
+        <div className="mdl-single-column">
+          <div className='mdl-card'>
+            <EntrySelect
+              pokedex={this.state.pokedex}
+              seenChangeHandler={this.seenChangeHandler}
+            />
+          </div>
+        </div>
+        <div className="mdl-multi-column">
           {items}
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 };

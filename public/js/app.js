@@ -39049,10 +39049,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Header_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Header.js */ "./resources/js/components/Header.js");
-/* harmony import */ var _Auth_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Auth.js */ "./resources/js/components/Auth.js");
-/* harmony import */ var _Playerdex_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Playerdex.js */ "./resources/js/components/Playerdex.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _Page_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Page.js */ "./resources/js/components/Page.js");
+/* harmony import */ var _Sidebar_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Sidebar.js */ "./resources/js/components/Sidebar.js");
+/* harmony import */ var _Auth_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Auth.js */ "./resources/js/components/Auth.js");
+/* harmony import */ var _Playerdex_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Playerdex.js */ "./resources/js/components/Playerdex.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -39080,16 +39081,53 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var LandingPage = function LandingPage(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-    className: ""
-  }, "Landing Page");
-};
 
-var PokedexPage = function PokedexPage(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-    className: ""
-  }, "Pokedex Page");
+var LandingPage = function LandingPage(props) {
+  if (props.user) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "mdl-multi-column"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "mdl-card mdl-card-link"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      className: "",
+      to: "/pokedex"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      "class": "far fa-tablet-android-alt"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "card-label"
+    }, "Pokedex"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "mdl-card mdl-card-link"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      className: "",
+      to: "/trainers"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      "class": "far fa-users"
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "card-label"
+    }, "Trainers"))));
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "mdl-multi-column"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "mdl-card mdl-card-link"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    className: "",
+    to: "/signin"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    "class": "far fa-sign-in-alt"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-label"
+  }, "Sign In"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "mdl-card mdl-card-link"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    className: "",
+    to: "/register"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    "class": "far fa-user-edit"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-label"
+  }, "Register"))));
 };
 
 var App =
@@ -39103,10 +39141,13 @@ function (_Component) {
     _classCallCheck(this, App);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
+    ;
     _this.state = {
-      user: base_user
+      user: base_user,
+      title: "Pokemon Manager v3"
     };
     _this.setUser = _this.setUser.bind(_assertThisInitialized(_this));
+    _this.setTitle = _this.setTitle.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -39118,34 +39159,67 @@ function (_Component) {
       });
     }
   }, {
+    key: "setTitle",
+    value: function setTitle(title) {
+      this.setState({
+        pageTitle: title
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "layoutContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
         user: this.state.user,
         setUser: this.setUser
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/",
-        component: LandingPage
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
+        render: function render(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
+            title: "Home",
+            component: function component(props) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LandingPage, _extends({}, props, {
+                user: _this2.state.user
+              }));
+            }
+          }, props));
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/signin",
-        component: function component(props) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Auth_js__WEBPACK_IMPORTED_MODULE_3__["SignInPage"], _extends({}, props, {
-            setUser: _this2.setUser
-          }));
+        render: function render(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
+            title: "Sign In",
+            component: function component(props) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Auth_js__WEBPACK_IMPORTED_MODULE_5__["SignInPage"], _extends({}, props, {
+                setUser: _this2.setUser
+              }));
+            }
+          }, props));
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/register",
-        component: function component(props) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Auth_js__WEBPACK_IMPORTED_MODULE_3__["RegisterPage"], _extends({}, props, {
-            setUser: _this2.setUser
-          }));
+        render: function render(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
+            title: "Register",
+            component: function component(props) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Auth_js__WEBPACK_IMPORTED_MODULE_5__["RegisterPage"], _extends({}, props, {
+                setUser: _this2.setUser
+              }));
+            }
+          }, props));
         }
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Route"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/pokedex",
-        component: _Playerdex_js__WEBPACK_IMPORTED_MODULE_4__["default"]
+        render: function render(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
+            title: "Player Pokedex",
+            component: _Playerdex_js__WEBPACK_IMPORTED_MODULE_6__["default"]
+          }, props));
+        }
       })));
     }
   }]);
@@ -39210,10 +39284,11 @@ var FormField = function FormField(_ref) {
       className = _ref.className,
       onChange = _ref.onChange;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "form-group"
+    className: "form-group " + className
   }, label && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
     htmlFor: name
   }, label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({}, input, {
+    id: name,
     name: name,
     type: type,
     onChange: onChange,
@@ -39276,10 +39351,9 @@ function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: ""
-      }, "Sign into your account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "mdl-single-column"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "mdl-card",
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormField, {
         label: "Email Address",
@@ -39300,13 +39374,13 @@ function (_Component) {
         name: "remember",
         id: "remember",
         type: "checkbox",
-        className: "",
+        className: "checkbox",
         onChange: this.myChangeHandler
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: ""
+        className: "form-control"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
-        className: ""
+        className: "mdl-button main"
       }, "Continue"))));
     }
   }]);
@@ -39363,10 +39437,9 @@ function (_Component2) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: ""
-      }, "Register a new account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "mdl-single-column"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "mdl-card",
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormField, {
         label: "Name",
@@ -39401,10 +39474,10 @@ function (_Component2) {
         className: "",
         onChange: this.myChangeHandler
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: ""
+        className: "form-control"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
-        className: ""
+        className: "mdl-button main"
       }, "Continue"))));
     }
   }]);
@@ -39417,10 +39490,10 @@ function (_Component2) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Header.js":
-/*!*******************************************!*\
-  !*** ./resources/js/components/Header.js ***!
-  \*******************************************/
+/***/ "./resources/js/components/Page.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/Page.js ***!
+  \*****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -39428,73 +39501,84 @@ function (_Component2) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
+/* 
+ * Component which serves the purpose of a "root route component". 
+ */
 
+var Page =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Page, _React$Component);
 
-var Header = function Header(props) {
-  if (props.user) {
-    var logout = function logout(e) {
-      e.preventDefault();
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(routes.logout).then(function (response) {
-        console.log(response.data);
+  function Page(props) {
+    var _this;
 
-        if (response.data.success) {
-          props.setUser(false);
-          window.location.reload(true);
-        }
-      })["catch"](function (err) {
-        console.log(err);
-      });
+    _classCallCheck(this, Page);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Page).call(this, props));
+    _this.state = {
+      title: ""
     };
-
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      className: "",
-      to: "/"
-    }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: ""
-    }, props.user), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      className: "",
-      to: "/pokedex"
-    }, "Pokedex")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-      href: "#",
-      className: "",
-      onClick: logout
-    }, "Log Out"))));
-  } else {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      className: "",
-      to: "/"
-    }, "Home"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      className: "",
-      to: "/signin"
-    }, "Sign In")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-      className: ""
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-      className: "",
-      to: "/register"
-    }, "Create Account"))));
+    return _this;
   }
-};
+  /**
+   * Here, we define a react lifecycle method that gets executed each time 
+   * our component is mounted to the DOM, which is exactly what we want in this case
+   */
 
-/* harmony default export */ __webpack_exports__["default"] = (Header);
+
+  _createClass(Page, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.title = this.props.title;
+      this.setState({
+        title: this.props.title
+      });
+    }
+    /**
+     * Here, we use a component prop to render 
+     * a component, as specified in route configuration
+     */
+
+  }, {
+    key: "render",
+    value: function render() {
+      var PageComponent = this.props.component;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "l-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+        className: "l-header"
+      }, this.state.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
+        className: "l-main"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PageComponent, {
+        history: this.props.history
+      })));
+    }
+  }]);
+
+  return Page;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Page);
 
 /***/ }),
 
@@ -39542,6 +39626,12 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var DexEntry = function DexEntry(props) {
   var trainerRef = props.trainerRef;
+
+  var toggleSelect = function toggleSelect() {
+    props.toggleSelect(props.entryID);
+  };
+
+  var selected = props.selected;
   var trainerData = Object.keys(trainerRef).map(function (key) {
     var ref = trainerRef[key];
     var checked = props.trainersCaught.includes(ref.id);
@@ -39563,18 +39653,37 @@ var DexEntry = function DexEntry(props) {
       htmlFor: checkboxKey
     }, ref.name));
   });
-  var trainerList = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Caught by:"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, trainerData));
+  var trainerList = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "trainerList"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Caught:"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", null, trainerData));
 
   var removeSeen = function removeSeen() {
     return props.seenChangeHandler(props.entryID, false);
   };
 
+  var imgsrc = "https://img.pokemondb.net/sprites/sun-moon/icon/" + props.name.toLowerCase() + ".png";
+  var className = "mdl-card dex-entry" + (selected ? " selected" : "");
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "dex-entry"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "#", props.ndid, ": ", props.name), trainerList, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+    className: className,
+    onClick: toggleSelect
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "ndid"
+  }, "#", props.ndid), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "sprite"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img", {
+    src: imgsrc,
+    alt: ""
+  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "name"
+  }, props.name), trainerList, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("a", {
+    className: "remove",
     href: "#",
     onClick: removeSeen
-  }, "Remove #", props.ndid));
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+    className: "far fa-times"
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+    className: "sr-only"
+  }, "Remove #", props.ndid)));
 };
 
 var EntrySelect = function EntrySelect(props) {
@@ -39619,9 +39728,12 @@ function (_Component) {
     _classCallCheck(this, PlayerdexPage);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(PlayerdexPage).call(this, props));
-    _this.state = {};
+    _this.state = {
+      selectedEntry: null
+    };
     _this.caughtChangeHandler = _this.caughtChangeHandler.bind(_assertThisInitialized(_this));
     _this.seenChangeHandler = _this.seenChangeHandler.bind(_assertThisInitialized(_this));
+    _this.selectEntryHandler = _this.selectEntryHandler.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -39717,6 +39829,19 @@ function (_Component) {
       });
     }
   }, {
+    key: "selectEntryHandler",
+    value: function selectEntryHandler(eid) {
+      if (this.state.selectedEntry == eid) {
+        this.setState({
+          selectedEntry: null
+        });
+      } else {
+        this.setState({
+          selectedEntry: eid
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this5 = this;
@@ -39733,21 +39858,23 @@ function (_Component) {
             trainersCaught: entry.trainersCaught,
             trainerRef: _this5.state.trainers,
             caughtChangeHandler: _this5.caughtChangeHandler,
-            seenChangeHandler: _this5.seenChangeHandler
+            seenChangeHandler: _this5.seenChangeHandler,
+            toggleSelect: _this5.selectEntryHandler,
+            selected: _this5.state.selectedEntry == entry.eid
           });
           return null;
         });
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: ""
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", {
-        className: ""
-      }, "Player Pokedex"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(EntrySelect, {
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-single-column"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-card"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(EntrySelect, {
         pokedex: this.state.pokedex,
         seenChangeHandler: this.seenChangeHandler
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "dex"
+      }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-multi-column"
       }, items));
     }
   }]);
@@ -39757,6 +39884,104 @@ function (_Component) {
 
 ;
 /* harmony default export */ __webpack_exports__["default"] = (PlayerdexPage);
+
+/***/ }),
+
+/***/ "./resources/js/components/Sidebar.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/Sidebar.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+
+
+
+var logout = function logout(e) {
+  e.preventDefault();
+  axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(routes.logout).then(function (response) {
+    console.log(response.data);
+
+    if (response.data.success) {
+      window.location.reload(true);
+    }
+  })["catch"](function (err) {
+    console.log(err);
+  });
+};
+
+var Sidebar = function Sidebar(props) {
+  var user = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null);
+  var links = [];
+
+  if (props.user) {
+    user = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "username"
+    }, props.user), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "logout"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      href: "#",
+      className: "",
+      onClick: logout
+    }, "Log Out")));
+    links = [{
+      to: "/",
+      label: "Home",
+      icon: "fa-home"
+    }, {
+      to: "/pokedex",
+      label: "Pokedex",
+      icon: "fa-tablet-android-alt"
+    }];
+  } else {
+    links = [{
+      to: "/",
+      label: "Home",
+      icon: "fa-home"
+    }, {
+      to: "/signin",
+      label: "Sign in",
+      icon: "fa-sign-in-alt"
+    }, {
+      to: "/register",
+      label: "Register",
+      icon: "fa-user-edit"
+    }];
+  }
+
+  links = links.map(function (link, key) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      className: "",
+      key: key
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      className: "",
+      to: link.to
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      className: "iconContainer"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      className: "fas " + link.icon
+    })), link.label));
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "l-sidebar"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "s-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "s-user"
+  }, user), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+    className: "s-links"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, links))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Sidebar);
 
 /***/ }),
 

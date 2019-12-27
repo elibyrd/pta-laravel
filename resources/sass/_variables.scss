@@ -7,13 +7,16 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66d9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
+$lightGrey: #F5F5F5;
+$lightGreyText: #757575;
+$grey: #37474F;
+$greyText: rgba(255, 255, 255, 0.56);
+$darkGrey: #263238;
+$darkGreyText: #eceff1;
+$highlight: #07ACC2;
+$highlightText: #37474F;
+$shadow: rgba(0,0,0,.5);
+
+$buttonMain: #00bcd4;
+$buttonMainHover: #009baf;
+$buttonMainText: #fff;

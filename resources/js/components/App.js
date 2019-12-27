@@ -1,45 +1,102 @@
 import React, { Component, useState } from 'react';
 import ReactDOM from 'react-dom';
-import Header from './Header.js';
-import {SignInPage, RegisterPage} from './Auth.js';
-import PlayerdexPage from './Playerdex.js';
-
 import {
   BrowserRouter,
   Link,
   Route
 } from 'react-router-dom';
 
+import Page from './Page.js';
+import Sidebar from './Sidebar.js';
+import {SignInPage, RegisterPage} from './Auth.js';
+import PlayerdexPage from './Playerdex.js';
+
 let LandingPage = (props) => {
-  return <h1 className="">Landing Page</h1>;
-};
-let PokedexPage = (props) => {
-  return <h1 className="">Pokedex Page</h1>;
-};
+  if(props.user){
+    return (
+      <div className="mdl-multi-column">
+        <div className="mdl-card mdl-card-link">
+          <Link className="" to="/pokedex">
+          <i class="far fa-tablet-android-alt"></i>
+            <div className="card-label">Pokedex</div>
+          </Link>
+        </div>
+        <div className="mdl-card mdl-card-link">
+          <Link className="" to="/trainers">
+            <i class="far fa-users"></i>
+            <div className="card-label">Trainers</div>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="mdl-multi-column">
+      <div className="mdl-card mdl-card-link">
+        <Link className="" to="/signin">
+          <i class="far fa-sign-in-alt"></i>
+          <div className="card-label">Sign In</div>
+        </Link>
+      </div>
+      <div className="mdl-card mdl-card-link">
+        <Link className="" to="/register">
+          <i class="far fa-user-edit"></i>
+          <div className="card-label">Register</div>
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props);;
     this.state = {
       user: base_user,
+      title: "Pokemon Manager v3",
     };
 
     this.setUser = this.setUser.bind(this);
+    this.setTitle = this.setTitle.bind(this);
   }
 
   setUser(value) {
     this.setState({user: value});
   }
 
+  setTitle(title){
+    this.setState({pageTitle: title});
+  }
+
   render() {
       return (
         <BrowserRouter>
-          <div>
-            <Header user={this.state.user} setUser={this.setUser} />
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/signin" component={(props) => <SignInPage {...props} setUser={this.setUser} />} />
-            <Route path="/register" component={(props) => <RegisterPage {...props} setUser={this.setUser} />} />
-            <Route path="/pokedex" component={PlayerdexPage} />
+          <div className='layoutContainer'>
+            <Sidebar user={this.state.user} setUser={this.setUser} />
+            <Route 
+              exact path="/" 
+              render={(props) => (
+                <Page title="Home" component={(props) => <LandingPage {...props} user={this.state.user} />} {...props} />
+              )}
+            />
+            <Route 
+              path="/signin" 
+              render={(props) => (
+                <Page title="Sign In" component={(props) => <SignInPage {...props} setUser={this.setUser} />} {...props} />
+              )}
+            />
+            <Route 
+              path="/register" 
+              render={(props) => (
+                <Page title="Register" component={(props) => <RegisterPage {...props} setUser={this.setUser} />} {...props} />
+              )}
+            />
+            <Route 
+              path="/pokedex" 
+              render={(props) => (
+                <Page title="Player Pokedex" component={PlayerdexPage} {...props} />
+              )}
+            />
           </div>
         </BrowserRouter>
       );
