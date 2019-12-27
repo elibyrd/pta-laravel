@@ -21,6 +21,12 @@
                 "register": "{{ route('register') }}",
                 "login": "{{ route('login') }}",
                 "logout": "{{ route('logout') }}",
+                "pokedex": {
+                    "getPokedexData": "{{ route('getPokedexData') }}",
+                    "setCaughtStatus": "{{ route('setCaughtStatus') }}",
+                    "setSeenStatus": "{{ route('setSeenStatus') }}",
+                },
+                "getPublicTrainers": "{{ route('getPublicTrainers') }}",
             };
         </script>
     </head>

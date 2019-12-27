@@ -30,7 +30,7 @@ let Header = (props) => {
                         {props.user}
                     </li>
                     <li className="">
-                        <Link className="" to="/dashboard">Dashboard</Link>
+                        <Link className="" to="/pokedex">Pokedex</Link>
                     </li>
                     <li className="">
                         <a href='#' className="" onClick={logout}>Log Out</a>
