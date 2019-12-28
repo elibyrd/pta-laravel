@@ -113,6 +113,10 @@
       display: flex;
       justify-content: flex-end;
   }
+
+  .card-actions > *:not(:last-child) {
+    margin-right: 1em;
+  }
 }
 
 .mdl-card-link {

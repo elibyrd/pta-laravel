@@ -98,6 +98,44 @@ class TrainerController extends Controller
     return TrainerController::getTrainerList();
   }
 
+  public function saveTrainer(Request $request){
+    $data = $request->all();
+    $trainer_id = $data['id'];
+    $trainer = Trainer::find($trainer_id);
+    if(!$trainer){
+      return response()->json([
+        'success' => false,
+        'message' => "Error: no trainer exists with id ".$trainer_id,
+      ]);
+    }
+
+    $user = Auth::user();
+    if(!$user){
+      return response()->json([
+        'success' => false,
+        'message' => "Error: can't edit trainer if not logged in.",
+      ]);
+    }
+    if($trainer->user_id != $user->id){
+      return response()->json([
+        'success' => false,
+        'message' => "User {$user_id} does not have access to delete trainer ".$trainer_id,
+      ]);
+    }
+
+    $trainer->name = $data['name'];
+    $trainer->public = $data['public'];
+    $success = $trainer->save();
+
+    if($success){
+      return TrainerController::getTrainerData($trainer_id);
+    }
+    return response()->json([
+      'success' => false,
+      'message' => "Error saving trainer ".$trainer_id,
+    ]);
+  }
+
   public function deleteTrainer(Request $request){
     $data = $request->all();
     $trainer_id = $data['tid'];

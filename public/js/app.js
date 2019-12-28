@@ -47560,6 +47560,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -47736,6 +47738,35 @@ function (_Component) {
 
 ;
 
+var FormField = function FormField(_ref2) {
+  var label = _ref2.label,
+      input = _ref2.input,
+      type = _ref2.type,
+      name = _ref2.name,
+      className = _ref2.className,
+      onChange = _ref2.onChange,
+      value = _ref2.value;
+  var checked = false;
+
+  if (type == 'checkbox' && value) {
+    checked = true;
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "form-group " + className
+  }, label && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("label", {
+    htmlFor: name
+  }, label), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", _extends({}, input, {
+    id: name,
+    value: value,
+    name: name,
+    type: type,
+    onChange: onChange,
+    className: className,
+    checked: checked
+  })));
+};
+
 var TrainerProfile =
 /*#__PURE__*/
 function (_Component2) {
@@ -47747,8 +47778,13 @@ function (_Component2) {
     _classCallCheck(this, TrainerProfile);
 
     _this4 = _possibleConstructorReturn(this, _getPrototypeOf(TrainerProfile).call(this, props));
-    _this4.state = {};
+    _this4.state = {
+      editing: false
+    };
+    _this4.editHandler = _this4.editHandler.bind(_assertThisInitialized(_this4));
+    _this4.saveHandler = _this4.saveHandler.bind(_assertThisInitialized(_this4));
     _this4.deleteHandler = _this4.deleteHandler.bind(_assertThisInitialized(_this4));
+    _this4.changeTrainerHandler = _this4.changeTrainerHandler.bind(_assertThisInitialized(_this4));
     return _this4;
   }
 
@@ -47793,16 +47829,44 @@ function (_Component2) {
       return componentDidMount;
     }()
   }, {
+    key: "editHandler",
+    value: function editHandler() {
+      this.setState({
+        editing: true
+      });
+    }
+  }, {
+    key: "saveHandler",
+    value: function saveHandler() {
+      var _this6 = this;
+
+      this.setState({
+        editing: false
+      });
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(routes.trainers.saveTrainer, this.state.trainer).then(function (response) {
+        if (response.data.success) {
+          _this6.setState({
+            trainer: response.data.payload
+          });
+        } else {
+          alert("Error saving trainer.");
+          console.log(response);
+        }
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  }, {
     key: "deleteHandler",
     value: function deleteHandler() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (confirm("Are you sure you want to delete this trainer?")) {
         axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(routes.trainers.deleteTrainer, {
           tid: this.state.trainer.id
         }).then(function (response) {
           if (response.data.success) {
-            _this6.props.history.push("/trainers");
+            _this7.props.history.push("/trainers");
           } else {
             alert("Error deleting trainer.");
             console.log(response);
@@ -47811,6 +47875,18 @@ function (_Component2) {
           console.log(err);
         });
       }
+    }
+  }, {
+    key: "changeTrainerHandler",
+    value: function changeTrainerHandler(event) {
+      var nam = event.target.name;
+      var val = event.target.value;
+      if (event.target.type == "checkbox") val = event.target.checked;
+      var trainer = this.state.trainer;
+      trainer[nam] = val;
+      this.setState({
+        trainer: trainer
+      });
     }
   }, {
     key: "render",
@@ -47823,22 +47899,56 @@ function (_Component2) {
         }, "Loading..."));
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "mdl-single-column"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "mdl-card trainer-profile"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      var profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "name"
       }, this.state.trainer.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "trainerImage"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "trainerData"
-      }, this.state.trainer.total_caught, " pokemon caught"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, this.state.trainer.total_caught, " pokemon caught"));
+
+      if (this.state.editing) {
+        profile = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FormField, {
+          label: "Trainer name",
+          name: "name",
+          id: "name",
+          type: "text",
+          className: "",
+          value: this.state.trainer.name,
+          onChange: this.changeTrainerHandler
+        }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FormField, {
+          label: "Public",
+          name: "public",
+          id: "public",
+          type: "checkbox",
+          className: "checkbox",
+          value: this.state.trainer["public"],
+          onChange: this.changeTrainerHandler
+        }));
+      }
+
+      var actions = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: "mdl-button",
+        onClick: this.editHandler
+      }, "Edit");
+
+      if (this.state.editing) {
+        actions = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          className: "mdl-button main",
+          onClick: this.saveHandler
+        }, "Save"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          className: "mdl-button warning",
+          onClick: this.deleteHandler
+        }, "Delete"));
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-single-column"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-card trainer-profile"
+      }, profile, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-actions"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        className: "mdl-button warning",
-        onClick: this.deleteHandler
-      }, "Delete"))));
+      }, actions)));
     }
   }]);
 

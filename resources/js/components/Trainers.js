@@ -119,13 +119,41 @@ class TrainerListPage extends Component {
   }
 };
 
+const FormField = ({
+    label,
+    input,
+    type,
+    name,
+    className,
+    onChange,
+    value,
+    //meta: { touched, error, warning }
+}) => {
+  let checked = false;
+  if(type == 'checkbox' && value){
+    checked = true;
+  }
+  return (
+    <div className={"form-group "+className}>
+        {
+            label &&
+            <label htmlFor={name}>{label}</label>
+        }
+        <input {...input } id={name} value={value} name={name} type={type} onChange={onChange} className={className} checked={checked} />
+    </div>
+  )};
+
 class TrainerProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      editing: false,
     };
 
+    this.editHandler = this.editHandler.bind(this);
+    this.saveHandler = this.saveHandler.bind(this);
     this.deleteHandler = this.deleteHandler.bind(this);
+    this.changeTrainerHandler = this.changeTrainerHandler.bind(this);
   }
 
   async componentDidMount() {
@@ -138,6 +166,28 @@ class TrainerProfile extends Component {
         this.setState({trainer: response.data.payload});
       else{
         alert("Error loading trainer data from server.");
+        console.log(response);
+      }
+    })
+    .catch( (err) => {
+      console.log(err);
+    });
+  }
+
+  editHandler() {
+    this.setState({editing: true});
+  }
+
+  saveHandler() {
+    this.setState({editing: false});
+    axios
+    .post(routes.trainers.saveTrainer, this.state.trainer)
+    .then( (response) => {
+      if(response.data.success){
+        this.setState({trainer: response.data.payload});
+      }
+      else{
+        alert("Error saving trainer.");
         console.log(response);
       }
     })
@@ -167,6 +217,17 @@ class TrainerProfile extends Component {
     }
   }
 
+  changeTrainerHandler(event) {
+      let nam = event.target.name;
+      let val = event.target.value;
+      if(event.target.type == "checkbox")
+          val = event.target.checked;
+
+      let trainer = this.state.trainer;
+      trainer[nam] = val;
+      this.setState({trainer: trainer});
+  }
+
   render() {
     if(!this.state.trainer){
       return (
@@ -175,13 +236,56 @@ class TrainerProfile extends Component {
         </div>
       );
     }
+
+    let profile = (
+      <React.Fragment>
+        <div className='name'>{this.state.trainer.name}</div>
+        <div className='trainerImage'></div>
+        <div className='trainerData'>{this.state.trainer.total_caught} pokemon caught</div>
+      </React.Fragment>
+    );
+    if(this.state.editing){
+      profile = (
+        <React.Fragment>
+          <FormField 
+              label="Trainer name" 
+              name="name" 
+              id="name" 
+              type="text" 
+              className="" 
+              value={this.state.trainer.name}
+              onChange={this.changeTrainerHandler}
+          />
+          <FormField 
+              label="Public"
+              name="public" 
+              id="public"
+              type="checkbox" 
+              className="checkbox" 
+              value={this.state.trainer.public}
+              onChange={this.changeTrainerHandler}
+          />
+        </React.Fragment>
+      );
+    }
+
+    let actions = (<button className="mdl-button" onClick={this.editHandler}>Edit</button>);
+    if(this.state.editing){
+      actions = (
+        <React.Fragment>
+          <button className="mdl-button main" onClick={this.saveHandler}>Save</button>
+          <button className="mdl-button warning" onClick={this.deleteHandler}>Delete</button>
+        </React.Fragment>
+      );
+    }
+
     return (
       <div className="mdl-single-column">
         <div className="mdl-card trainer-profile">
-          <div className='name'>{this.state.trainer.name}</div>
-          <div className='trainerImage'></div>
-          <div className='trainerData'>{this.state.trainer.total_caught} pokemon caught</div>
-          <div className='card-actions'><button className="mdl-button warning" onClick={this.deleteHandler}>Delete</button></div>
+          {profile}
+          <div className='card-actions'>
+            {actions}
+          </div>
         </div>
       </div>
     );

@@ -468,6 +468,10 @@ template {
           justify-content: flex-end;
 }
 
+.mdl-card .card-actions > *:not(:last-child) {
+  margin-right: 1em;
+}
+
 .mdl-card-link {
   font-size: 1.5em;
   padding: 0;
