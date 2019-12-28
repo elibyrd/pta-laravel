@@ -32,6 +32,7 @@
                     "getPublicTrainers": "{{ route('getPublicTrainers') }}",
                     "getTrainerData": "/ajax/trainers/getTrainerData",
                     "addTrainer": "{{ route('addTrainer') }}",
+                    "deleteTrainer": "{{ route('deleteTrainer') }}",
                 }
             };
         </script>

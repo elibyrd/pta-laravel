@@ -31,6 +31,7 @@ Route::group(['prefix' => 'ajax'], function() {
   Route::get('trainers/publicTrainers', 'TrainerController@getPublicTrainers')->name('getPublicTrainers');
   Route::get('trainers/getTrainerData/{id}', 'TrainerController@getTrainerData')->name('getTrainerData');
   Route::post('trainers/addTrainer', 'TrainerController@addTrainer')->name('addTrainer');
+  Route::post('trainers/deleteTrainer', 'TrainerController@deleteTrainer')->name('deleteTrainer');
 
   Auth::routes();
 });

@@ -458,6 +458,16 @@ template {
   padding: 1em;
 }
 
+.mdl-card .card-actions {
+  margin: 1em -1em -1em -1em;
+  border-top: 1px solid #ccc;
+  padding: 1em;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+}
+
 .mdl-card-link {
   font-size: 1.5em;
   padding: 0;
@@ -549,6 +559,16 @@ a.mdl-card {
 .mdl-button.main:hover,
 .mdl-button.main:focus {
   background-color: #009baf;
+}
+
+.mdl-button.warning {
+  background-color: #ab000d;
+  color: #fff;
+}
+
+.mdl-button.warning:hover,
+.mdl-button.warning:focus {
+  background-color: #e53935;
 }
 
 .mdl-button-round {

@@ -80,6 +80,7 @@ class TrainerController extends Controller
         'name' => $trainer->name,
         'public' => $trainer->public,
         'user' => $user->name,
+        'total_caught' => $trainer->pokedex_entries->count(),
       ],
     ]);
   }
@@ -95,5 +96,37 @@ class TrainerController extends Controller
 
     Trainer::createTrainer($user->id);
     return TrainerController::getTrainerList();
+  }
+
+  public function deleteTrainer(Request $request){
+    $data = $request->all();
+    $trainer_id = $data['tid'];
+    $trainer = Trainer::find($trainer_id);
+    if(!$trainer){
+      return response()->json([
+        'success' => false,
+        'message' => "Error: no trainer exists with id ".$trainer_id,
+      ]);
+    }
+
+    $user = Auth::user();
+    if(!$user){
+      return response()->json([
+        'success' => false,
+        'message' => "Error: can't delete trainer if not logged in.",
+      ]);
+    }
+    if($trainer->user_id != $user->id){
+      return response()->json([
+        'success' => false,
+        'message' => "User {$user_id} does not have access to delete trainer ".$trainer_id,
+      ]);
+    }
+
+    $trainer->delete();
+    return response()->json([
+      'success' => true,
+      'message' => "Trainer successfully deleted",
+    ]);
   }
 }

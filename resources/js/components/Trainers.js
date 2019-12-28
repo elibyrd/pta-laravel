@@ -125,7 +125,7 @@ class TrainerProfile extends Component {
     this.state = {
     };
 
-    //this.addTrainerHandler = this.addTrainerHandler.bind(this);
+    this.deleteHandler = this.deleteHandler.bind(this);
   }
 
   async componentDidMount() {
@@ -146,15 +146,26 @@ class TrainerProfile extends Component {
     });
   }
 
-  /*
-  selectEntryHandler(eid) {
-    if(this.state.selectedEntry == eid){
-      this.setState({selectedEntry: null});
+  deleteHandler() {
+    if(confirm("Are you sure you want to delete this trainer?")){
+      axios
+      .post(routes.trainers.deleteTrainer, {
+        tid: this.state.trainer.id,
+      })
+      .then( (response) => {
+        if(response.data.success){
+          this.props.history.push("/trainers");
+        }
+        else{
+          alert("Error deleting trainer.");
+          console.log(response);
+        }
+      })
+      .catch( (err) => {
+        console.log(err);
+      });
     }
-    else {
-      this.setState({selectedEntry: eid});
-    }
-  }*/
+  }
 
   render() {
     if(!this.state.trainer){
@@ -169,7 +180,8 @@ class TrainerProfile extends Component {
         <div className="mdl-card trainer-profile">
           <div className='name'>{this.state.trainer.name}</div>
           <div className='trainerImage'></div>
-          <div className='trainerData'>Level 3 Ace Trainer</div>
+          <div className='trainerData'>{this.state.trainer.total_caught} pokemon caught</div>
+          <div className='card-actions'><button className="mdl-button warning" onClick={this.deleteHandler}>Delete</button></div>
         </div>
       </div>
     );

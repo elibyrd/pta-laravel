@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import Select from 'react-select';
 
 let DexEntry = (props) => {
   let trainerRef = props.trainerRef;
@@ -49,22 +50,23 @@ let EntrySelect = (props) => {
     return (<div>Loading...</div>);
   }
 
-  let options = pokedex.map((entry, key) => {
+  let options = pokedex.filter((entry) => {
     if(entry.seen){
-      return null;
+      return false;
     }
-    return (
-      <option key={entry.eid} value={entry.eid}>
-        {entry.ndid}: {entry.name}
-      </option>
-    );
-  });
-  let onChange = (event)=>(seenChangeHandler(event.target.value, true));
+    return true;
+  }).map((entry) => ({ 
+    value: entry.eid, 
+    label: entry.ndid+": "+entry.name 
+  }));
+  let onChange = (selected)=>{seenChangeHandler(selected.value, true)};
   return (
-    <select onChange={onChange}>
-      <option key="-1" value="-1">Add a pokemon...</option>
-      {options}
-    </select>
+    <Select
+      value="-1"
+      onChange={onChange}
+      options={options}
+      placeholder="Add a pokemon..."
+    />
   );
 };
 
