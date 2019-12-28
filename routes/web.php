@@ -27,25 +27,14 @@ Route::group(['prefix' => 'ajax'], function() {
   Route::post('pokedex/setCaughtStatus', 'PokedexController@setCaughtStatus')->name('setCaughtStatus');
   Route::post('pokedex/setSeenStatus', 'PokedexController@setSeenStatus')->name('setSeenStatus');
 
-  Route::get('publicTrainers', function() {
-    $trainers = Trainer::where('public', true)->get();
-
-    $trainersJson = $trainers->mapWithKeys(function ($trainer) {
-      return [$trainer->id => [
-        'id' => $trainer->id,
-        'name' => $trainer->name,
-      ]];
-    });
-
-    return response()->json([
-      'success' => true,
-      'payload' => $trainersJson,
-    ]);
-  })->name('getPublicTrainers');
+  Route::get('trainers/trainerList', 'TrainerController@getTrainerList')->name('getTrainerList');
+  Route::get('trainers/publicTrainers', 'TrainerController@getPublicTrainers')->name('getPublicTrainers');
+  Route::get('trainers/getTrainerData/{id}', 'TrainerController@getTrainerData')->name('getTrainerData');
+  Route::post('trainers/addTrainer', 'TrainerController@addTrainer')->name('addTrainer');
 
   Auth::routes();
 });
 
-Route::get('/{path?}', function () {
+Route::fallback(function () {
   return view('app');
 });

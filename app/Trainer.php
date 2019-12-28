@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Trainer extends Model
 {
+
+  protected $guarded = [''];
+
   /**
   * Get the user that owns the trainer.
   */
@@ -20,5 +23,13 @@ class Trainer extends Model
   public function pokedex_entries()
   {
     return $this->belongsToMany('App\PokedexEntry', 'trainers_pokedex_entries', 'trainer_id', 'pokedex_entry_id');
+  }
+
+  public static function createTrainer($user_id){
+    return Trainer::create([
+      'name' => 'New trainer',
+      'user_id' => $user_id,
+      'public' => false,
+    ]);
   }
 }

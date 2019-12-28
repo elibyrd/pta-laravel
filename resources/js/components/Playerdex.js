@@ -96,7 +96,7 @@ class PlayerdexPage extends Component {
     });
     
     axios
-    .get(routes.getPublicTrainers)
+    .get(routes.trainers.getPublicTrainers)
     .then( (response) => {
       if(response.data.success)
         this.setState({trainers: response.data.payload});
@@ -165,7 +165,7 @@ class PlayerdexPage extends Component {
 
   render() {
     let items = (
-      <div>Loading...</div>
+      <React.Fragment></React.Fragment>
     );
     if(this.state.pokedex && this.state.trainers){
       items = this.state.pokedex.map((entry, key) => {

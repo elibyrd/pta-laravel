@@ -10,6 +10,7 @@ import Page from './Page.js';
 import Sidebar from './Sidebar.js';
 import {SignInPage, RegisterPage} from './Auth.js';
 import PlayerdexPage from './Playerdex.js';
+import {TrainerListPage, TrainerProfile} from './Trainers.js';
 
 let LandingPage = (props) => {
   if(props.user){
@@ -17,13 +18,13 @@ let LandingPage = (props) => {
       <div className="mdl-multi-column">
         <div className="mdl-card mdl-card-link">
           <Link className="" to="/pokedex">
-          <i class="far fa-tablet-android-alt"></i>
+          <i className="far fa-tablet-android-alt"></i>
             <div className="card-label">Pokedex</div>
           </Link>
         </div>
         <div className="mdl-card mdl-card-link">
           <Link className="" to="/trainers">
-            <i class="far fa-users"></i>
+            <i className="far fa-users"></i>
             <div className="card-label">Trainers</div>
           </Link>
         </div>
@@ -80,21 +81,33 @@ class App extends Component {
               )}
             />
             <Route 
-              path="/signin" 
+              exact path="/signin" 
               render={(props) => (
                 <Page title="Sign In" component={(props) => <SignInPage {...props} setUser={this.setUser} />} {...props} />
               )}
             />
             <Route 
-              path="/register" 
+              exact path="/register" 
               render={(props) => (
                 <Page title="Register" component={(props) => <RegisterPage {...props} setUser={this.setUser} />} {...props} />
               )}
             />
             <Route 
-              path="/pokedex" 
+              exact path="/pokedex" 
               render={(props) => (
                 <Page title="Player Pokedex" component={PlayerdexPage} {...props} />
+              )}
+            />
+            <Route 
+              exact path="/trainers" 
+              render={(props) => (
+                <Page title="Trainer List" component={TrainerListPage} {...props} />
+              )}
+            />
+            <Route 
+              path="/trainers/:id" 
+              render={(props) => (
+                <Page title="Trainer" component={(props) => <TrainerProfile {...props} />} {...props} />
               )}
             />
           </div>

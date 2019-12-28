@@ -33,7 +33,7 @@ class Page extends React.Component {
           {this.state.title}
         </header>
         <main className='l-main'>
-        <PageComponent history={this.props.history} />
+        <PageComponent history={this.props.history} match={this.props.match} />
         </main>
       </div>
     )

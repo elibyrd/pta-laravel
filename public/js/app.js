@@ -39054,6 +39054,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Sidebar_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Sidebar.js */ "./resources/js/components/Sidebar.js");
 /* harmony import */ var _Auth_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Auth.js */ "./resources/js/components/Auth.js");
 /* harmony import */ var _Playerdex_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Playerdex.js */ "./resources/js/components/Playerdex.js");
+/* harmony import */ var _Trainers_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Trainers.js */ "./resources/js/components/Trainers.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -39082,6 +39083,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var LandingPage = function LandingPage(props) {
   if (props.user) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -39092,7 +39094,7 @@ var LandingPage = function LandingPage(props) {
       className: "",
       to: "/pokedex"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      "class": "far fa-tablet-android-alt"
+      className: "far fa-tablet-android-alt"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "card-label"
     }, "Pokedex"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -39101,7 +39103,7 @@ var LandingPage = function LandingPage(props) {
       className: "",
       to: "/trainers"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-      "class": "far fa-users"
+      className: "far fa-users"
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "card-label"
     }, "Trainers"))));
@@ -39189,6 +39191,7 @@ function (_Component) {
           }, props));
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
         path: "/signin",
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
@@ -39201,6 +39204,7 @@ function (_Component) {
           }, props));
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
         path: "/register",
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
@@ -39213,11 +39217,31 @@ function (_Component) {
           }, props));
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
         path: "/pokedex",
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
             title: "Player Pokedex",
             component: _Playerdex_js__WEBPACK_IMPORTED_MODULE_6__["default"]
+          }, props));
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/trainers",
+        render: function render(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
+            title: "Trainer List",
+            component: _Trainers_js__WEBPACK_IMPORTED_MODULE_7__["TrainerListPage"]
+          }, props));
+        }
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        path: "/trainers/:id",
+        render: function render(props) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
+            title: "Trainer",
+            component: function component(props) {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Trainers_js__WEBPACK_IMPORTED_MODULE_7__["TrainerProfile"], props);
+            }
           }, props));
         }
       })));
@@ -39570,7 +39594,8 @@ function (_React$Component) {
       }, this.state.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
         className: "l-main"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PageComponent, {
-        history: this.props.history
+        history: this.props.history,
+        match: this.props.match
       })));
     }
   }]);
@@ -39759,7 +39784,7 @@ function (_Component) {
                 })["catch"](function (err) {
                   console.log(err);
                 });
-                axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(routes.getPublicTrainers).then(function (response) {
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(routes.trainers.getPublicTrainers).then(function (response) {
                   if (response.data.success) _this2.setState({
                     trainers: response.data.payload
                   });else {
@@ -39846,7 +39871,7 @@ function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      var items = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Loading...");
+      var items = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null);
 
       if (this.state.pokedex && this.state.trainers) {
         items = this.state.pokedex.map(function (entry, key) {
@@ -39935,17 +39960,21 @@ var Sidebar = function Sidebar(props) {
     links = [{
       to: "/",
       label: "Home",
-      icon: "fa-home"
+      icon: "fa-home-lg-alt"
     }, {
       to: "/pokedex",
       label: "Pokedex",
       icon: "fa-tablet-android-alt"
+    }, {
+      to: "/trainers",
+      label: "Trainers",
+      icon: "fa-users"
     }];
   } else {
     links = [{
       to: "/",
       label: "Home",
-      icon: "fa-home"
+      icon: "fa-home-lg-alt"
     }, {
       to: "/signin",
       label: "Sign in",
@@ -39982,6 +40011,301 @@ var Sidebar = function Sidebar(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Sidebar);
+
+/***/ }),
+
+/***/ "./resources/js/components/Trainers.js":
+/*!*********************************************!*\
+  !*** ./resources/js/components/Trainers.js ***!
+  \*********************************************/
+/*! exports provided: TrainerListPage, TrainerProfile */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TrainerListPage", function() { return TrainerListPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TrainerProfile", function() { return TrainerProfile; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var TrainerCard = function TrainerCard(_ref) {
+  var id = _ref.id,
+      name = _ref.name,
+      isPrivate = _ref.isPrivate;
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    className: "mdl-card trainer-card",
+    to: "/trainers/" + id
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "name"
+  }, name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "trainerImage"
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "trainerData"
+  }, "Level 3 Ace Trainer"), isPrivate ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "(private)") : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null));
+};
+
+var TrainerListPage =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(TrainerListPage, _Component);
+
+  function TrainerListPage(props) {
+    var _this;
+
+    _classCallCheck(this, TrainerListPage);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TrainerListPage).call(this, props));
+    _this.state = {};
+    _this.addTrainerHandler = _this.addTrainerHandler.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(TrainerListPage, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _this2 = this;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(routes.trainers.getTrainerList).then(function (response) {
+                  if (response.data.success) _this2.setState({
+                    trainers: response.data.payload
+                  });else {
+                    alert("Error loading trainer data from server.");
+                    console.log(response);
+                  }
+                })["catch"](function (err) {
+                  console.log(err);
+                });
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
+    key: "addTrainerHandler",
+    value: function addTrainerHandler() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(routes.trainers.addTrainer).then(function (response) {
+        if (response.data.success) {
+          _this3.setState({
+            trainers: response.data.payload
+          });
+        } else {
+          alert("Error adding new trainer.");
+          console.log(response);
+        }
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+    /*
+    selectEntryHandler(eid) {
+      if(this.state.selectedEntry == eid){
+        this.setState({selectedEntry: null});
+      }
+      else {
+        this.setState({selectedEntry: eid});
+      }
+    }*/
+
+  }, {
+    key: "render",
+    value: function render() {
+      var items = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null);
+
+      if (!this.state.trainers) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "mdl-single-column"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "mdl-card"
+        }, "Loading..."));
+      }
+
+      var myTrainers = this.state.trainers.myTrainers.map(function (trainer, key) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TrainerCard, {
+          key: trainer.id,
+          id: trainer.id,
+          name: trainer.name,
+          isPrivate: trainer["private"]
+        });
+      });
+      var otherTrainers = this.state.trainers.otherTrainers.map(function (trainer, key) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TrainerCard, {
+          key: trainer.id,
+          id: trainer.id,
+          name: trainer.name,
+          isPrivate: trainer["private"]
+        });
+      });
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-header"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", null, "Your trainers")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-multi-column"
+      }, myTrainers), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-header"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h2", null, "Other trainers")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-multi-column"
+      }, otherTrainers), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-button main mdl-button-round",
+        onClick: this.addTrainerHandler
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "fas fa-user-plus"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Add new trainer")));
+    }
+  }]);
+
+  return TrainerListPage;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+;
+
+var TrainerProfile =
+/*#__PURE__*/
+function (_Component2) {
+  _inherits(TrainerProfile, _Component2);
+
+  function TrainerProfile(props) {
+    var _this4;
+
+    _classCallCheck(this, TrainerProfile);
+
+    _this4 = _possibleConstructorReturn(this, _getPrototypeOf(TrainerProfile).call(this, props));
+    _this4.state = {}; //this.addTrainerHandler = this.addTrainerHandler.bind(this);
+
+    return _this4;
+  }
+
+  _createClass(TrainerProfile, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount2 = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _this5 = this;
+
+        var trainer_id, route;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                trainer_id = this.props.match.params.id;
+                route = routes.trainers.getTrainerData + "/" + trainer_id;
+                axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(route).then(function (response) {
+                  if (response.data.success) _this5.setState({
+                    trainer: response.data.payload
+                  });else {
+                    alert("Error loading trainer data from server.");
+                    console.log(response);
+                  }
+                })["catch"](function (err) {
+                  console.log(err);
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount2.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+    /*
+    selectEntryHandler(eid) {
+      if(this.state.selectedEntry == eid){
+        this.setState({selectedEntry: null});
+      }
+      else {
+        this.setState({selectedEntry: eid});
+      }
+    }*/
+
+  }, {
+    key: "render",
+    value: function render() {
+      if (!this.state.trainer) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "mdl-single-column"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "mdl-card"
+        }, "Loading..."));
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-single-column"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "mdl-card trainer-profile"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "name"
+      }, this.state.trainer.name), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "trainerImage"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "trainerData"
+      }, "Level 3 Ace Trainer")));
+    }
+  }]);
+
+  return TrainerProfile;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+;
+
 
 /***/ }),
 

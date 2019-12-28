@@ -429,6 +429,10 @@ template {
   font-size: 1.2em;
 }
 
+.mdl-header {
+  margin: 0 1em;
+}
+
 .mdl-single-column {
   padding: 1em;
   padding-top: 0;
@@ -483,6 +487,11 @@ template {
 .mdl-card-link a:focus {
   background-color: #F5F5F5;
   color: #263238;
+}
+
+a.mdl-card {
+  text-decoration: none;
+  color: inherit;
 }
 
 .form-group {
@@ -540,6 +549,27 @@ template {
 .mdl-button.main:hover,
 .mdl-button.main:focus {
   background-color: #009baf;
+}
+
+.mdl-button-round {
+  width: 1em;
+  height: 1em;
+  padding: 0.75em;
+  border-radius: 50%;
+  font-size: 1.75em;
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.mdl-button-round i.fa-user-plus {
+  padding-left: 0.1em;
 }
 
 .dex-entry {

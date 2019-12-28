@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PokedexController extends Controller
 {
   public function getPokedexData(){
-    $entries = PokedexEntry::all();
+    $entries = PokedexEntry::orderBy('ndid')->get();
 
     $entriesJson = $entries->map(function ($entry) {
       return [

@@ -27,7 +27,12 @@
                     "setCaughtStatus": "{{ route('setCaughtStatus') }}",
                     "setSeenStatus": "{{ route('setSeenStatus') }}",
                 },
-                "getPublicTrainers": "{{ route('getPublicTrainers') }}",
+                "trainers": {
+                    "getTrainerList": "{{ route('getTrainerList') }}",
+                    "getPublicTrainers": "{{ route('getPublicTrainers') }}",
+                    "getTrainerData": "/ajax/trainers/getTrainerData",
+                    "addTrainer": "{{ route('addTrainer') }}",
+                }
             };
         </script>
     </head>

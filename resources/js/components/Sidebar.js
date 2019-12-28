@@ -31,13 +31,14 @@ let Sidebar = (props) => {
       </React.Fragment>
     )
     links = [
-      {to: "/", label: "Home", icon: "fa-home"},
+      {to: "/", label: "Home", icon: "fa-home-lg-alt"},
       {to: "/pokedex", label: "Pokedex", icon: "fa-tablet-android-alt"},
+      {to: "/trainers", label: "Trainers", icon: "fa-users"},
     ];
   }
   else{
     links = [
-      {to: "/", label: "Home", icon: "fa-home"},
+      {to: "/", label: "Home", icon: "fa-home-lg-alt"},
       {to: "/signin", label: "Sign in", icon: "fa-sign-in-alt"},
       {to: "/register", label: "Register", icon: "fa-user-edit"},
     ];
