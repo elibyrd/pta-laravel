@@ -137,6 +137,9 @@ class PlayerdexPage extends Component {
     if(eid < 0 || eid == "-1")
       return;
 
+    if(!status && !confirm("Delete this pokemon from the player dex?")){
+      return;
+    }
     axios
     .post(routes.pokedex.setSeenStatus, {
       eid: eid,
@@ -166,32 +169,37 @@ class PlayerdexPage extends Component {
   }
 
   render() {
-    let items = (
-      <React.Fragment></React.Fragment>
-    );
-    if(this.state.pokedex && this.state.trainers){
-      items = this.state.pokedex.map((entry, key) => {
-        if(entry.seen)
-          return (
-            <DexEntry
-              key={entry.ndid}
-              entryID={entry.eid}
-              ndid={entry.ndid}
-              name={entry.name}
-              trainersCaught={entry.trainersCaught}
-              trainerRef={this.state.trainers}
-              caughtChangeHandler={this.caughtChangeHandler}
-              seenChangeHandler={this.seenChangeHandler}
-              toggleSelect={this.selectEntryHandler}
-              selected={this.state.selectedEntry == entry.eid}
-            />);
-        return null;
-      });
+    if(!(this.state.pokedex && this.state.trainers)){
+      return (
+        <div className="mdl-single-column">
+          <div className='mdl-card'>
+            Loading...
+          </div>
+        </div>
+      );
     }
+
+    let dex_seen = this.state.pokedex.filter((entry)=>(entry.seen));
+    let items = dex_seen.map((entry, key) => {
+      return (
+        <DexEntry
+          key={entry.ndid}
+          entryID={entry.eid}
+          ndid={entry.ndid}
+          name={entry.name}
+          trainersCaught={entry.trainersCaught}
+          trainerRef={this.state.trainers}
+          caughtChangeHandler={this.caughtChangeHandler}
+          seenChangeHandler={this.seenChangeHandler}
+          toggleSelect={this.selectEntryHandler}
+          selected={this.state.selectedEntry == entry.eid}
+        />);
+    });
     return (
       <React.Fragment>
         <div className="mdl-single-column">
           <div className='mdl-card'>
+            <p>{dex_seen.length} pokemon registered.</p>
             <EntrySelect
               pokedex={this.state.pokedex}
               seenChangeHandler={this.seenChangeHandler}
