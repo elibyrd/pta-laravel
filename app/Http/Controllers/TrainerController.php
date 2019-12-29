@@ -39,6 +39,7 @@ class TrainerController extends Controller
         'id' => $trainer->id,
         'name' => $trainer->name,
         'private' => !$trainer->public,
+        'currentUserHasEdit' => true,
       ];
     });
 
@@ -47,6 +48,7 @@ class TrainerController extends Controller
         'id' => $trainer->id,
         'name' => $trainer->name,
         'private' => !$trainer->public,
+        'currentUserHasEdit' => false,
       ];
     });
 
@@ -81,6 +83,7 @@ class TrainerController extends Controller
         'public' => $trainer->public,
         'user' => $user->name,
         'total_caught' => $trainer->pokedex_entries->count(),
+        'currentUserHasEdit' => ($trainer->user_id == $user->id),
       ],
     ]);
   }

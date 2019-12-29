@@ -279,13 +279,17 @@ class TrainerProfile extends Component {
       );
     }
 
+    let actions_wrapped = (
+      <div className='card-actions'>
+        {actions}
+      </div>
+    )
+
     return (
       <div className="mdl-single-column">
         <div className="mdl-card trainer-profile">
           {profile}
-          <div className='card-actions'>
-            {actions}
-          </div>
+          {this.state.trainer.currentUserHasEdit && actions_wrapped}
         </div>
       </div>
     );
