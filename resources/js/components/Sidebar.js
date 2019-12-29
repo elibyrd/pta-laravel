@@ -45,7 +45,7 @@ let Sidebar = (props) => {
   }
   links = links.map((link, key)=>(
     <li className="" key={key}>
-      <Link className="" to={link.to}><span className='iconContainer'><i className={"fas "+link.icon}></i></span>{link.label}</Link>
+      <Link className="" to={link.to} onClick={props.menuClose}><span className='iconContainer'><i className={"fas "+link.icon}></i></span>{link.label}</Link>
     </li>
   ));
   return (
@@ -54,6 +54,7 @@ let Sidebar = (props) => {
         <div className="s-user">{user}</div>
         <nav className="s-links"><ul>{links}</ul></nav>
       </div>
+      <div className="s-shade" onClick={props.menuClick}></div>
     </div>
   );
 };

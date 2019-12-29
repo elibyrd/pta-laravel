@@ -7,7 +7,7 @@ class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: ""
+      title: "",
     };
   }
 
@@ -30,7 +30,8 @@ class Page extends React.Component {
     return (
       <div className='l-content'>
         <header className='l-header'>
-          {this.state.title}
+          <div className='h-hamburger mobile-only' onClick={this.props.menuClick}><i className="fas fa-bars"></i><span className='sr-only'>Menu</span></div>
+          <div className='h-title'>{this.state.title}</div>
         </header>
         <main className='l-main'>
         <PageComponent history={this.props.history} match={this.props.match} />

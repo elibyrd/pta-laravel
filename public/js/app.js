@@ -46639,7 +46639,7 @@ var LandingPage = function LandingPage(props) {
     className: "",
     to: "/signin"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    "class": "far fa-sign-in-alt"
+    className: "far fa-sign-in-alt"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-label"
   }, "Sign In"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -46648,7 +46648,7 @@ var LandingPage = function LandingPage(props) {
     className: "",
     to: "/register"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    "class": "far fa-user-edit"
+    className: "far fa-user-edit"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "card-label"
   }, "Register"))));
@@ -46668,10 +46668,13 @@ function (_Component) {
     ;
     _this.state = {
       user: base_user,
-      title: "Pokemon Manager v3"
+      title: "Pokemon Manager v3",
+      menuOpen: false
     };
     _this.setUser = _this.setUser.bind(_assertThisInitialized(_this));
     _this.setTitle = _this.setTitle.bind(_assertThisInitialized(_this));
+    _this.menuClick = _this.menuClick.bind(_assertThisInitialized(_this));
+    _this.menuClose = _this.menuClose.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -46690,18 +46693,35 @@ function (_Component) {
       });
     }
   }, {
+    key: "menuClick",
+    value: function menuClick() {
+      this.setState({
+        menuOpen: !this.state.menuOpen
+      });
+    }
+  }, {
+    key: "menuClose",
+    value: function menuClose() {
+      this.setState({
+        menuOpen: false
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "layoutContainer"
+        className: 'layoutContainer' + (this.state.menuOpen ? " menuOpen" : "")
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Sidebar_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
         user: this.state.user,
-        setUser: this.setUser
+        setUser: this.setUser,
+        menuClick: this.menuClick,
+        menuClose: this.menuClose
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/",
+        menuClick: this.menuClick,
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
             title: "Home",
@@ -46710,11 +46730,14 @@ function (_Component) {
                 user: _this2.state.user
               }));
             }
-          }, props));
+          }, props, {
+            menuClick: _this2.menuClick
+          }));
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/signin",
+        menuClick: this.menuClick,
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
             title: "Sign In",
@@ -46723,11 +46746,14 @@ function (_Component) {
                 setUser: _this2.setUser
               }));
             }
-          }, props));
+          }, props, {
+            menuClick: _this2.menuClick
+          }));
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/register",
+        menuClick: this.menuClick,
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
             title: "Register",
@@ -46736,35 +46762,46 @@ function (_Component) {
                 setUser: _this2.setUser
               }));
             }
-          }, props));
+          }, props, {
+            menuClick: _this2.menuClick
+          }));
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/pokedex",
+        menuClick: this.menuClick,
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
             title: "Player Pokedex",
             component: _Playerdex_js__WEBPACK_IMPORTED_MODULE_6__["default"]
-          }, props));
+          }, props, {
+            menuClick: _this2.menuClick
+          }));
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/trainers",
+        menuClick: this.menuClick,
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
             title: "Trainer List",
             component: _Trainers_js__WEBPACK_IMPORTED_MODULE_7__["TrainerListPage"]
-          }, props));
+          }, props, {
+            menuClick: _this2.menuClick
+          }));
         }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/trainers/:id",
+        menuClick: this.menuClick,
         render: function render(props) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Page_js__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
             title: "Trainer",
             component: function component(props) {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Trainers_js__WEBPACK_IMPORTED_MODULE_7__["TrainerProfile"], props);
             }
-          }, props));
+          }, props, {
+            menuClick: _this2.menuClick
+          }));
         }
       })));
     }
@@ -46828,7 +46865,9 @@ var FormField = function FormField(_ref) {
       type = _ref.type,
       name = _ref.name,
       className = _ref.className,
-      onChange = _ref.onChange;
+      onChange = _ref.onChange,
+      touched = _ref.touched,
+      error = _ref.error;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group " + className
   }, label && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
@@ -46838,16 +46877,10 @@ var FormField = function FormField(_ref) {
     name: name,
     type: type,
     onChange: onChange,
-    className: ""
-    /*{
-    `${className} ${
-    /*meta.touched && (
-    (meta.error && 'is-invalid')
-    )
-    }`
-    }*/
-
-  })));
+    className: "".concat(error && 'has-error')
+  })), error && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "error"
+  }, error));
 };
 
 var SignInPage =
@@ -46974,6 +47007,12 @@ function (_Component2) {
           _this4.props.setUser(response.data.user);
 
           _this4.props.history.push("/");
+        } else {
+          if (response.data.errors) {
+            _this4.setState({
+              errors: response.data.errors
+            });
+          }
         }
       })["catch"](function (err) {
         console.log(err);
@@ -46982,43 +47021,57 @@ function (_Component2) {
   }, {
     key: "render",
     value: function render() {
+      var _this5 = this;
+
+      var fields = [{
+        label: "Name",
+        name: "name",
+        type: "text",
+        className: ""
+      }, {
+        label: "Email Address",
+        name: "email",
+        type: "email",
+        className: ""
+      }, {
+        label: "Password",
+        name: "password",
+        type: "password",
+        className: ""
+      }, {
+        label: "Confirm Password",
+        name: "password_confirmation",
+        type: "password",
+        className: ""
+      }];
+
+      if (this.state.errors) {
+        fields = fields.map(function (field) {
+          if (_this5.state.errors[field.name]) {
+            field.error = _this5.state.errors[field.name][0];
+          }
+
+          return field;
+        });
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mdl-single-column"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "mdl-card",
         onSubmit: this.handleSubmit
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormField, {
-        label: "Name",
-        name: "name",
-        component: FormField,
-        id: "text",
-        type: "name",
-        className: "",
-        onChange: this.myChangeHandler
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormField, {
-        label: "Email Address",
-        name: "email",
-        component: FormField,
-        id: "email",
-        type: "email",
-        className: "",
-        onChange: this.myChangeHandler
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormField, {
-        label: "Password",
-        name: "password",
-        component: FormField,
-        id: "password",
-        type: "password",
-        className: "",
-        onChange: this.myChangeHandler
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormField, {
-        label: "Confirm Password",
-        name: "password_confirmation",
-        component: FormField,
-        id: "password-confirm",
-        type: "password",
-        className: "",
-        onChange: this.myChangeHandler
+      }, fields.map(function (field) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FormField, {
+          label: field.label,
+          name: field.name,
+          component: FormField,
+          id: field.name,
+          type: field.type,
+          className: field.className,
+          onChange: _this5.myChangeHandler,
+          key: field.name,
+          error: field.error
+        });
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-control"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -47113,7 +47166,16 @@ function (_React$Component) {
         className: "l-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "l-header"
-      }, this.state.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "h-hamburger mobile-only",
+        onClick: this.props.menuClick
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-bars"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "sr-only"
+      }, "Menu")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "h-title"
+      }, this.state.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
         className: "l-main"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PageComponent, {
         history: this.props.history,
@@ -47363,6 +47425,11 @@ function (_Component) {
       var _this4 = this;
 
       if (eid < 0 || eid == "-1") return;
+
+      if (!status && !confirm("Delete this pokemon from the player dex?")) {
+        return;
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(routes.pokedex.setSeenStatus, {
         eid: eid,
         status: status
@@ -47397,31 +47464,36 @@ function (_Component) {
     value: function render() {
       var _this5 = this;
 
-      var items = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null);
-
-      if (this.state.pokedex && this.state.trainers) {
-        items = this.state.pokedex.map(function (entry, key) {
-          if (entry.seen) return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DexEntry, {
-            key: entry.ndid,
-            entryID: entry.eid,
-            ndid: entry.ndid,
-            name: entry.name,
-            trainersCaught: entry.trainersCaught,
-            trainerRef: _this5.state.trainers,
-            caughtChangeHandler: _this5.caughtChangeHandler,
-            seenChangeHandler: _this5.seenChangeHandler,
-            toggleSelect: _this5.selectEntryHandler,
-            selected: _this5.state.selectedEntry == entry.eid
-          });
-          return null;
-        });
+      if (!(this.state.pokedex && this.state.trainers)) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "mdl-single-column"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "mdl-card"
+        }, "Loading..."));
       }
 
+      var dex_seen = this.state.pokedex.filter(function (entry) {
+        return entry.seen;
+      });
+      var items = dex_seen.map(function (entry, key) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DexEntry, {
+          key: entry.ndid,
+          entryID: entry.eid,
+          ndid: entry.ndid,
+          name: entry.name,
+          trainersCaught: entry.trainersCaught,
+          trainerRef: _this5.state.trainers,
+          caughtChangeHandler: _this5.caughtChangeHandler,
+          seenChangeHandler: _this5.seenChangeHandler,
+          toggleSelect: _this5.selectEntryHandler,
+          selected: _this5.state.selectedEntry == entry.eid
+        });
+      });
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "mdl-single-column"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "mdl-card"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(EntrySelect, {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, dex_seen.length, " pokemon registered."), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(EntrySelect, {
         pokedex: this.state.pokedex,
         seenChangeHandler: this.seenChangeHandler
       }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -47518,7 +47590,8 @@ var Sidebar = function Sidebar(props) {
       key: key
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
       className: "",
-      to: link.to
+      to: link.to,
+      onClick: props.menuClose
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       className: "iconContainer"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -47533,7 +47606,10 @@ var Sidebar = function Sidebar(props) {
     className: "s-user"
   }, user), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
     className: "s-links"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, links))));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, links))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "s-shade",
+    onClick: props.menuClick
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Sidebar);
@@ -47942,13 +48018,14 @@ function (_Component2) {
         }, "Delete"));
       }
 
+      var actions_wrapped = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "card-actions"
+      }, actions);
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "mdl-single-column"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "mdl-card trainer-profile"
-      }, profile, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-actions"
-      }, actions)));
+      }, profile, this.state.trainer.currentUserHasEdit && actions_wrapped));
     }
   }]);
 

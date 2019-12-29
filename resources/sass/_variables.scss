@@ -1,6 +1,10 @@
 // Body
 $body-bg: #f8fafc;
 
+// Breakpoints;
+$mobile-max: 800px;
+$mobile-min: 801px;
+
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
@@ -16,6 +20,7 @@ $darkGreyText: #eceff1;
 $highlight: #07ACC2;
 $highlightText: #37474F;
 $shadow: rgba(0,0,0,.5);
+$error: #ab000d;
 
 $buttonMain: #00bcd4;
 $buttonMainHover: #009baf;

@@ -348,6 +348,12 @@ template {
 [hidden] {
   display: none;
 }
+@media (min-width: 801px) {
+  .mobile-only {
+    display: none;
+  }
+}
+
 .layoutContainer {
   width: 100%;
   height: 100vh;
@@ -416,9 +422,29 @@ template {
   margin-right: 0.75em;
 }
 
+@media (max-width: 800px) {
+  .l-sidebar {
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 20;
+  }
+
+  .l-sidebar .s-shade {
+    -webkit-box-flex: 1;
+            flex: 1 1 auto;
+  }
+
+  .menuOpen .l-sidebar {
+    display: -webkit-box;
+    display: flex;
+    position: absolute;
+    width: 100%;
+  }
+}
+
 .l-content {
   -webkit-box-flex: 1;
-          flex: 1 0 auto;
+          flex: 1 1 auto;
 }
 
 .l-header {
@@ -427,6 +453,12 @@ template {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   padding: 1em;
   font-size: 1.2em;
+  display: -webkit-box;
+  display: flex;
+}
+
+.l-header .h-hamburger {
+  margin-right: 1.5em;
 }
 
 .mdl-header {
@@ -521,6 +553,16 @@ a.mdl-card {
   border: none;
   border-bottom: 1px solid grey;
   padding: 0.5em 0.2em;
+}
+
+.form-group input.has-error {
+  border-color: #ab000d;
+}
+
+.form-group span.error {
+  font-size: 0.8em;
+  margin-top: 0.4em;
+  color: #ab000d;
 }
 
 .form-group label {
